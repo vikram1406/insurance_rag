@@ -1,0 +1,11 @@
+plan_name,category,age_25,age_30,age_35,age_40,age_45,age_50,coverage_amount,notes
+LIC Tech-Term (1Cr),Term Life,9500,13000,19500,31000,52000,88000,"1,00,00,000","Non-smoker male, 30yr term"
+HDFC Click2Protect (1Cr),Term Life,9200,12500,18800,30000,50000,85000,"1,00,00,000","Non-smoker male, 30yr term"
+Star Health Optima (10L family),Health,14200,18700,22400,28200,36900,48000,"10,00,000",2A+2C family floater
+HDFC Optima Restore (10L family),Health,12000,16500,20100,25800,33000,44000,"10,00,000",2A+2C family floater
+Niva Bupa ReAssure (10L individual),Health,8500,11000,14500,19200,26500,37000,"10,00,000",Individual
+HDFC ERGO Car Insurance,Motor,6200,7200,8000,9500,11000,12000,IDV Based,"Private car 1.2L petrol, 5yr old"
+Bajaj Allianz Car Insurance,Motor,5800,6800,7500,9000,10500,11500,IDV Based,"Private car 1.2L petrol, 5yr old"
+Bajaj Travel Guard Gold (15 days),Travel,1050,1050,1050,1050,1800,2500,"$1,00,000 medical",International trip
+"LIC New Endowment (10L, 20yr)",Endowment,38000,44600,50400,59600,N/A,N/A,"10,00,000",Maturity + death benefit
+HDFC Click2Wealth ULIP,ULIP,60000,65000,72000,82000,95000,N/A,10x premium,Min Rs.60000 premium

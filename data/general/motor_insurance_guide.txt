@@ -1,0 +1,123 @@
+MOTOR INSURANCE - COMPLETE GUIDE
+=================================
+
+WHAT IS MOTOR INSURANCE?
+Motor insurance is a policy that provides financial protection against losses arising from accidents, theft, natural calamities, or third-party liabilities involving your vehicle. Under the Motor Vehicles Act 1988, Third-Party (TP) insurance is MANDATORY for all vehicles in India.
+
+TYPES OF MOTOR INSURANCE
+--------------------------
+
+1. THIRD-PARTY LIABILITY (Mandatory by Law)
+   - Covers bodily injury or death to a third party
+   - Covers property damage to a third party (up to Rs. 7.5 Lakh)
+   - Does NOT cover your own vehicle damage
+   - Premium is fixed by IRDAI (not negotiable)
+   - TP Premium for private car (1000-1500cc): Rs. 3,416/year
+
+2. OWN DAMAGE (OD) COVER
+   - Covers damage to YOUR vehicle
+   - Fire, theft, flood, cyclone, earthquake
+   - Accidental collision damage
+   - Premium depends on IDV, make, model, age of vehicle
+   - Optional but strongly recommended
+
+3. COMPREHENSIVE POLICY (TP + OD = Package Policy)
+   - Combines both Third-Party and Own Damage
+   - Most complete protection
+   - Recommended for all vehicles less than 10 years old
+
+4. STANDALONE OD POLICY
+   - Only Own Damage, no TP
+   - Useful if you have TP from another insurer
+   - Introduced in 2019 by IRDAI
+
+UNDERSTANDING IDV (INSURED DECLARED VALUE)
+-------------------------------------------
+IDV = Current Market Value of Vehicle (after depreciation)
+This is the MAXIMUM you will receive in a total loss / theft claim.
+
+Age of Vehicle     Depreciation    IDV (for Rs. 10L car)
+Up to 6 months     5%              Rs. 9,50,000
+6 months-1 year    15%             Rs. 8,50,000
+1-2 years          20%             Rs. 8,00,000
+2-3 years          30%             Rs. 7,00,000
+3-4 years          40%             Rs. 6,00,000
+4-5 years          50%             Rs. 5,00,000
+Above 5 years      Mutually agreed Rs. 3,00,000 (approx)
+
+TIP: Always choose a higher IDV - it costs only slightly more premium but gives better coverage.
+
+NO CLAIM BONUS (NCB)
+---------------------
+If you do not make any claim in a policy year, you earn NCB discount on your OD premium at renewal.
+
+Claim-Free Years    NCB Discount
+1 year              20%
+2 years             25%
+3 years             35%
+4 years             45%
+5+ years            50%
+
+IMPORTANT: NCB belongs to YOU, not the vehicle. You can transfer it to a new vehicle.
+NCB can save you up to 50% on OD premium after 5 claim-free years!
+
+KEY ADD-ON COVERS
+------------------
+1. Zero Depreciation (Bumper to Bumper):
+   - Without it: Insurer pays claim minus depreciation on parts
+   - With it: Insurer pays FULL cost of parts without depreciation deduction
+   - Highly recommended for cars less than 5 years old
+   - Extra premium: approx 15-20% of OD premium
+
+2. Engine Protection:
+   - Covers engine damage due to water ingression (flooding)
+   - Covers hydrostatic lock, leakage of lubricating oil
+   - Essential if you live in flood-prone areas
+   
+3. Return to Invoice (RTI):
+   - In total loss/theft: pays original invoice price, not IDV
+   - Covers registration and road tax too
+   - Recommended for first 3 years
+
+4. Roadside Assistance (RSA):
+   - 24x7 help for breakdown, flat tyre, fuel delivery
+   - Towing to nearest garage
+   - Very affordable add-on (Rs. 200-500/year)
+
+5. NCB Protect:
+   - Allows 1 claim per year without losing NCB
+   - Worth buying if you have 35%+ NCB
+
+WHAT IS NOT COVERED (EXCLUSIONS)
+----------------------------------
+- Drunk driving or influence of drugs
+- Driving without valid driving license
+- Using private vehicle for commercial purpose
+- Electrical/mechanical breakdown
+- Depreciation and wear & tear
+- Outside India travel (without international cover)
+- Deliberate damage
+- War, nuclear risks
+
+TWO-WHEELER INSURANCE
+-----------------------
+All rules are same but premiums are lower.
+Third-Party Premium (up to 75cc): Rs. 538/year (IRDAI fixed rate)
+Third-Party Premium (75cc-150cc): Rs. 714/year
+Third-Party Premium (150cc-350cc): Rs. 1,366/year
+Third-Party Premium (above 350cc): Rs. 2,804/year
+
+HOW TO RENEW ON TIME
+---------------------
+- Renew before expiry date
+- If policy lapses, vehicle must be inspected before renewal
+- You LOSE your NCB if not renewed within 90 days of expiry
+- Third-party lapse = driving illegally = heavy fine
+
+TIPS TO REDUCE PREMIUM
+------------------------
+1. Install anti-theft device (ARAI approved) - 2.5% discount
+2. Be part of automobile association - 5% discount
+3. Opt for voluntary deductible - saves 5-25% on OD premium
+4. Choose only needed add-ons
+5. Compare quotes on Policybazaar, Coverfox, InsuranceDekho
