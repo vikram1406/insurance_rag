@@ -15,7 +15,7 @@ VECTORSTORE_DIR = os.path.join(BASE_DIR, "vectorstore_db")
 # ── OpenRouter LLM settings ────────────────────────────────────────────────
 OPENROUTER_API_KEY  = os.getenv("OPENROUTER_API_KEY")
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
-LLM_MODEL           = "meta-llama/llama-3.1-8b-instruct:free"   # free model
+LLM_MODEL = "meta-llama/llama-3.1-8b-instruct"   # free model
 
 # ── Embedding settings ─────────────────────────────────────────────────────
 EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"   # free HuggingFace model
