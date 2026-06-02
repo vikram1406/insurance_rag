@@ -13,7 +13,6 @@ from src.utils import (
     check_api_key,
     print_info,
     print_success,
-    print_error,
 )
 
 
@@ -25,6 +24,7 @@ def format_context(docs):
         source = doc.metadata.get("filename", "Unknown file")
         category = doc.metadata.get("category", "Unknown category")
         page = doc.metadata.get("page", "N/A")
+        chunk_id = doc.metadata.get("chunk_id", "N/A")
 
         context_parts.append(
             f"""
@@ -32,6 +32,7 @@ SOURCE {i}
 File: {source}
 Category: {category}
 Page: {page}
+Chunk ID: {chunk_id}
 
 Content:
 {doc.page_content}
@@ -41,18 +42,61 @@ Content:
     return "\n\n".join(context_parts)
 
 
-def build_prompt(question: str, context: str) -> str:
+def format_chat_history(chat_history: list[dict], max_turns: int = 5) -> str:
+    """Format recent chat history for prompt."""
+    if not chat_history:
+        return "No previous conversation."
+
+    recent_history = chat_history[-max_turns:]
+    history_text = ""
+
+    for item in recent_history:
+        history_text += f"User: {item['question']}\n"
+        history_text += f"Assistant: {item['answer']}\n\n"
+
+    return history_text.strip()
+
+
+def build_retrieval_query(question: str, chat_history: list[dict] | None = None) -> str:
+    """
+    Build retrieval query.
+
+    If the user asks follow-up questions like:
+    - it
+    - this
+    - isme
+    - us policy
+
+    then retriever also gets recent chat history.
+    """
+    if not chat_history:
+        return question
+
+    return f"""
+Previous conversation:
+{format_chat_history(chat_history, max_turns=2)}
+
+Current question:
+{question}
+"""
+
+
+def build_prompt(question: str, context: str, chat_history_text: str) -> str:
     """Create final prompt for the LLM."""
     return f"""
 You are an insurance assistant.
 
-Answer the user's question using ONLY the context provided below.
+Answer the user's question using ONLY the context provided below and the previous conversation.
 
 Rules:
 - Do not make up information.
 - If the answer is not present in the context, say: "I could not find this information in the provided policy documents."
+- Use previous conversation only to understand follow-up words like "it", "this", "isme", "us policy".
 - Keep the answer clear and simple.
-- Mention relevant policy terms when available.
+- If multiple policies have different rules, mention that it depends on the policy.
+
+Previous Conversation:
+{chat_history_text}
 
 Context:
 {context}
@@ -91,14 +135,19 @@ def call_openrouter(prompt: str) -> str:
     )
 
     if response.status_code != 200:
-        raise Exception(f"OpenRouter API Error: {response.status_code} - {response.text}")
+        raise Exception(
+            f"OpenRouter API Error: {response.status_code} - {response.text}"
+        )
 
     data = response.json()
     return data["choices"][0]["message"]["content"]
 
 
-def answer_question(question: str) -> str:
+def answer_question(question: str, chat_history: list[dict] | None = None) -> str:
     """Full RAG pipeline: retrieve context and generate answer."""
+
+    if chat_history is None:
+        chat_history = []
 
     if not check_api_key():
         return "OpenRouter API key missing."
@@ -109,7 +158,9 @@ def answer_question(question: str) -> str:
         return "Retriever could not be loaded. Please create vectorstore first."
 
     print_info("Retrieving relevant chunks...")
-    docs = retriever.invoke(question)
+
+    retrieval_query = build_retrieval_query(question, chat_history)
+    docs = retriever.invoke(retrieval_query)
 
     if not docs:
         return "No relevant documents found."
@@ -117,8 +168,9 @@ def answer_question(question: str) -> str:
     print_success(f"Retrieved {len(docs)} relevant chunks")
 
     context = format_context(docs)
+    chat_history_text = format_chat_history(chat_history)
 
-    prompt = build_prompt(question, context)
+    prompt = build_prompt(question, context, chat_history_text)
 
     print_info("Generating answer using LLM...")
     answer = call_openrouter(prompt)
@@ -127,11 +179,28 @@ def answer_question(question: str) -> str:
 
 
 if __name__ == "__main__":
-    question = input("Ask insurance question: ")
+    chat_history = []
 
-    answer = answer_question(question)
+    print("Insurance RAG Assistant with Chat Memory")
+    print("Type 'exit' to stop.\n")
 
-    print("\n" + "=" * 80)
-    print("ANSWER")
-    print("=" * 80)
-    print(answer)
+    while True:
+        question = input("Ask insurance question: ")
+
+        if question.lower().strip() in ["exit", "quit", "q"]:
+            print("Goodbye!")
+            break
+
+        answer = answer_question(question, chat_history)
+
+        print("\n" + "=" * 80)
+        print("ANSWER")
+        print("=" * 80)
+        print(answer)
+
+        chat_history.append({
+            "question": question,
+            "answer": answer
+        })
+
+        chat_history = chat_history[-5:]
