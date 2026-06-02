@@ -1,6 +1,7 @@
 import os
 import sys
 import re
+import hashlib
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -28,6 +29,19 @@ def clean_text(text: str) -> str:
     text = re.sub(r"\s+([,.!?;:])", r"\1", text)
     text = re.sub(r"Page\s+\d+\s+of\s+\d+", "", text, flags=re.IGNORECASE)
     return text.strip()
+
+
+def generate_chunk_hash(text: str, source: str = "") -> str:
+    """
+    Generate a stable unique hash for each chunk.
+
+    Why:
+    - Helps track chunks uniquely
+    - Helps detect duplicate chunks
+    - Helps future document/version updates
+    """
+    hash_input = f"{source}::{text}".encode("utf-8")
+    return hashlib.md5(hash_input).hexdigest()
 
 
 def load_single_file(file_path: str) -> list[Document]:
@@ -146,6 +160,7 @@ def split_documents(documents: list[Document]) -> list[Document]:
     - Recursive chunking preserves paragraph/sentence boundaries better.
     - chunk_size=1000 and chunk_overlap=200 gave a good balance.
     - Very small chunks are removed.
+    - Hash mapping is added for chunk tracking and duplicate detection.
     """
     print_info(f"Splitting documents into chunks (size={CHUNK_SIZE}, overlap={CHUNK_OVERLAP})...")
 
@@ -162,6 +177,16 @@ def split_documents(documents: list[Document]) -> list[Document]:
         chunk for chunk in chunks
         if len(chunk.page_content.strip()) >= 100
     ]
+
+    for i, chunk in enumerate(chunks):
+        source = chunk.metadata.get("source", "")
+
+        chunk.metadata["chunk_id"] = generate_chunk_hash(
+            chunk.page_content,
+            source
+        )
+
+        chunk.metadata["chunk_index"] = i
 
     print_success(f"Created {len(chunks)} chunks from {len(documents)} document sections")
     return chunks
