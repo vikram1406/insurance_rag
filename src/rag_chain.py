@@ -107,40 +107,51 @@ Question:
 Answer:
 """
 
-
 def call_openrouter(prompt: str) -> str:
     """Call OpenRouter chat completion API."""
 
-    headers = {
-        "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-        "Content-Type": "application/json",
-    }
+    try:
 
-    payload = {
-        "model": LLM_MODEL,
-        "messages": [
-            {
-                "role": "user",
-                "content": prompt,
-            }
-        ],
-        "temperature": 0.2,
-    }
+        headers = {
+            "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+            "Content-Type": "application/json",
+        }
 
-    response = requests.post(
-        f"{OPENROUTER_BASE_URL}/chat/completions",
-        headers=headers,
-        json=payload,
-        timeout=60,
-    )
+        payload = {
+            "model": LLM_MODEL,
+            "messages": [
+                {
+                    "role": "user",
+                    "content": prompt,
+                }
+            ],
+            "temperature": 0.2,
+        }
 
-    if response.status_code != 200:
-        raise Exception(
-            f"OpenRouter API Error: {response.status_code} - {response.text}"
+        response = requests.post(
+            f"{OPENROUTER_BASE_URL}/chat/completions",
+            headers=headers,
+            json=payload,
+            timeout=60,
         )
 
-    data = response.json()
-    return data["choices"][0]["message"]["content"]
+        if response.status_code != 200:
+
+            if response.status_code == 429:
+                return (
+                    "⚠️ AI service is currently busy "
+                    "(rate limit reached). Please try again in a minute."
+                )
+
+            return (
+                f"⚠️ OpenRouter Error: {response.status_code}"
+            )
+
+        data = response.json()
+        return data["choices"][0]["message"]["content"]
+
+    except Exception as e:
+        return f"⚠️ System Error: {str(e)}"
 
 
 def answer_question(question: str, chat_history: list[dict] | None = None) -> str:
@@ -164,6 +175,14 @@ def answer_question(question: str, chat_history: list[dict] | None = None) -> st
 
     if not docs:
         return "No relevant documents found."
+    # print("\nTOP RETRIEVED DOCUMENTS\n")
+
+    for i, doc in enumerate(docs, 1):
+        print(f"\nRESULT {i}")
+        print("=" * 50)
+        print("File:", doc.metadata.get("filename"))
+        print("Category:", doc.metadata.get("category"))
+        print(doc.page_content[:500])
 
     print_success(f"Retrieved {len(docs)} relevant chunks")
 

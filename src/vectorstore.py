@@ -92,14 +92,18 @@ def load_vectorstore():
 
 
 def get_retriever(k=5):
-
     vectorstore = load_vectorstore()
 
     if vectorstore is None:
         return None
 
     return vectorstore.as_retriever(
-        search_kwargs={"k": k}
+        search_type="mmr",
+        search_kwargs={
+            "k": k,
+            "fetch_k": 20,
+            "lambda_mult": 0.5
+        }
     )
 
 
